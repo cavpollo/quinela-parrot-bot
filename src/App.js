@@ -4,6 +4,14 @@ const SlackBot = require('./SlackBot')
 const Parser = require('./Parser')
 const http = require('http')
 
+const parrotMessages = ['Don\'t be sad if you are last. It just means you aren\'t winning.',
+    'The best part about winning, is being able to identify the losers.',
+    'Don\'t worry, the next round you\'ll do better... Who are we kidding, your bad choices got you where you are.',
+    'If you don\t know who to pick, here is a tip: bet everything on Brasil, that way you can blame nostalgia for your bad choices.',
+    'Let\'s us all thank Gus for making this Quinela possible. How else would we know how to squander our money?',
+    'All the Quinela money is safely stored on a Cayman Island account. Untraceable. Nothing to worry about.',
+    'Parrot Bot likes Germany. And Germany likes to work. So get back to work before I start tagging you on more Pull Requests!']
+
 class App {
     static start() {
         const controller = new SlackBot().getController()
@@ -48,15 +56,12 @@ class App {
 
                 let formattedPlayers = []
                 for(let i = 0; i < players.length; i++) {
-                    let player = players[i]
-                    console.log('player')
-                    console.log(player)
-                    formattedPlayers.push('' + player.rank + '. ' + player.nombres + ': ' + player.puntos + ' points')
+                    formattedPlayers.push(formatPlayer(players[i]))
                 }
 
                 textMessage += formattedPlayers.join('\n')
 
-                textMessage += '\n\n:party_parrot: Don\'t be sad if you are last. It just means you aren\'t winning.'
+                textMessage += '\n\n:party_parrot: ' + getRandomMessage(parrotMessages)
 
                 bot.reply({channel: message.channel}, {'text': textMessage})
 
@@ -64,11 +69,19 @@ class App {
             })
 
         }).on("error", (err) => {
-            bot.reply({channel: message.channel}, {'text': 'Error :sad_parrot:'})
+            bot.reply({channel: message.channel}, {'text': 'Error, something went wrong and I don\'t know how to fix it... I\'m just a parrot :sad_parrot:'})
 
             console.error('Error: ' + err.message)
         })
     }
+}
+
+function formatPlayer(player) {
+    return `${player.rank}. ${player.nombres}: ${player.puntos} points`
+}
+
+function getRandomMessage(messages){
+    return messages[Math.floor(Math.random() * messages.length)]
 }
 
 module.exports = App
