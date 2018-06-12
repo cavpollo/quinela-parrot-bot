@@ -44,9 +44,9 @@ class App {
                 let message = ':party_parrot: SCOREBOARD :party_parrot:\n\n'
 
                 console.log('data.content')
-                console.log(data.content)
+                console.log(data['content'])
 
-                let playersFormatter = _(data.content).map(this.playerFormatter)
+                let playersFormatter = _(data['content']).map(this.playerFormatter)
 
                 console.log('playersFormatter')
                 console.log(playersFormatter)
