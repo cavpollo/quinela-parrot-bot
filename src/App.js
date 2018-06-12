@@ -3,7 +3,6 @@
 const SlackBot = require('./SlackBot')
 const Parser = require('./Parser')
 const http = require('http')
-const _ = require("lodash")
 
 class App {
     static start() {
@@ -45,10 +44,15 @@ class App {
 
                 let dataJson = JSON.parse(data)
 
-                console.log('data.content')
+                console.log('dataJson')
                 console.log(dataJson)
 
-                let playersFormatter = _(dataJson.content).map(this.playerFormatter)
+                let players = dataJson.content
+
+                let playersFormatter = []
+                for(let i = 0; i < players.length; i++) {
+                    playersFormatter.push(this.playerFormatter(players[i])
+                }
 
                 console.log('playersFormatter')
                 console.log(playersFormatter)
