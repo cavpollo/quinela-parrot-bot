@@ -41,17 +41,19 @@ class App {
             })
 
             resp.on('end', () => {
-                let players = data.content;
-
                 let message = ':party_parrot: SCOREBOARD :party_parrot:\n\n'
 
-                let playersFormatter = _(players).map(this.playerFormatter)
+                console.log('data.content')
+                console.log(data.content)
+
+                let playersFormatter = _(data.content).map(this.playerFormatter)
+
+                console.log('playersFormatter')
+                console.log(playersFormatter)
 
                 message += playersFormatter.join('\n')
 
                 message += '\n\nDon\'t be sad if you are last. It just means you aren\'t winning.'
-
-                console.log(message)
 
                 bot.reply({channel: message.channel}, {'text': message})
 
@@ -66,6 +68,8 @@ class App {
     }
 
     static playerFormatter(player) {
+        console.log('player')
+        console.log(player)
         return '' + player.rank + '. - ' + player.nombres + ' : ' + player.puntos;
     }
 }
