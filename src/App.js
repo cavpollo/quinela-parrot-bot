@@ -7,13 +7,13 @@ class App {
   static start() {
     const controller = new SlackBot().getController()
 
-    controller.hears("ls (.+)", ["direct_message", "direct_mention", "mention"], this.ls)
+    controller.hears("scoreboard (.+)", ["direct_message", "direct_mention", "mention"], this.scoreboard)
   }
 
-  static ls(bot, message) {
-    const {organization, labels} = new Parser(message.match[1]).parse()
+  static scoreboard(bot, message) {
+    const {labels} = new Parser(message.match[1]).parse()
 
-    console.log('Filtering requests for [Org:' + organization + '][Labels:' + labels.join(',') + ']!')
+    console.log('Stuff for [Labels:' + labels.join(',') + ']!')
   }
 }
 
