@@ -40,7 +40,7 @@ class App {
             })
 
             resp.on('end', () => {
-                let textMessage = ':party_parrot: SCOREBOARD :party_parrot:\n\n'
+                let textMessage = ':party_parrot: :soccer: SCOREBOARD :soccer: :party_parrot:\n\n'
 
                 let dataJson = JSON.parse(data)
 
@@ -56,7 +56,7 @@ class App {
 
                 textMessage += formattedPlayers.join('\n')
 
-                textMessage += '\n\nDon\'t be sad if you are last. It just means you aren\'t winning.'
+                textMessage += '\n\n:party_parrot: Don\'t be sad if you are last. It just means you aren\'t winning.'
 
                 bot.reply({channel: message.channel}, {'text': textMessage})
 
