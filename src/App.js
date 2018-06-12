@@ -51,6 +51,8 @@ class App {
 
                 message += '\n\nDon\'t be sad if you are last. It just means you aren\'t winning.'
 
+                console.log(message)
+
                 bot.reply({channel: message.channel}, {'text': message})
 
                 console.log('Done notifying')
