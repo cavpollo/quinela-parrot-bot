@@ -9,13 +9,21 @@ class App {
     static start() {
         const controller = new SlackBot().getController()
 
-        controller.hears("scoreboard (.*)", ["direct_message", "direct_mention", "mention"], this.scoreboard)
+        controller.hears("scoreboard", ["direct_message", "direct_mention", "mention"], this.scoreboard)
+
+        controller.hears("scoreboard (.+)", ["direct_message", "direct_mention", "mention"], this.scoreboardMessage)
     }
 
-    static scoreboard(bot, message) {
-        const {labels} = new Parser(message.match[1]).parse()
+    static scoreboard(bot) {
+        this.scoreboardMessage(bot, [])
+    }
 
-        console.log('Stuff for [Labels:' + labels.join(',') + ']!')
+    static scoreboardMessage(bot, message) {
+        // if(message.length > 0) {
+        //     const {labels} = new Parser(message.match[1]).parse()
+        //
+        //     console.log('Stuff for [Labels:' + labels.join(',') + ']!')
+        // }
 
         let host = process.env.QUINELA_HOST
         let port = process.env.QUINELA_PORT
