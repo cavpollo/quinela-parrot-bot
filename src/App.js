@@ -49,15 +49,15 @@ class App {
 
                 let players = dataJson.content
 
-                let playersFormatter = []
+                let formattedPlayers = []
                 for(let i = 0; i < players.length; i++) {
-                    playersFormatter.push(this.playerFormatter(players[i]))
+                    formattedPlayers.push(this.playerFormatter(players[i]))
                 }
 
-                console.log('playersFormatter')
-                console.log(playersFormatter)
+                console.log('formattedPlayers')
+                console.log(formattedPlayers)
 
-                message += playersFormatter.join('\n')
+                message += formattedPlayers.join('\n')
 
                 message += '\n\nDon\'t be sad if you are last. It just means you aren\'t winning.'
 
