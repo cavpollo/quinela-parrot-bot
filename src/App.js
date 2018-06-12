@@ -44,14 +44,14 @@ class App {
 
                 let dataJson = JSON.parse(data)
 
-                console.log('dataJson')
-                console.log(dataJson)
-
                 let players = dataJson.content
 
                 let formattedPlayers = []
                 for(let i = 0; i < players.length; i++) {
-                    formattedPlayers.push(this.playerFormatter(players[i]))
+                    let player = players[i]
+                    console.log('player')
+                    console.log(player)
+                    formattedPlayers.push('' + player.rank + '. ' + player.nombres + ': ' + player.puntos + ' points')
                 }
 
                 console.log('formattedPlayers')
@@ -71,12 +71,6 @@ class App {
 
             console.error('Error: ' + err.message)
         })
-    }
-
-    static playerFormatter(player) {
-        console.log('player')
-        console.log(player)
-        return '' + player.rank + '. - ' + player.nombres + ' : ' + player.puntos;
     }
 }
 
