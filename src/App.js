@@ -10,15 +10,9 @@ class App {
         const controller = new SlackBot().getController()
 
         controller.hears("scoreboard", ["direct_message", "direct_mention", "mention"], this.scoreboard)
-
-        controller.hears("scoreboard (.+)", ["direct_message", "direct_mention", "mention"], this.scoreboardMessage)
     }
 
-    static scoreboard(bot) {
-        this.scoreboardMessage(bot, [])
-    }
-
-    static scoreboardMessage(bot, message) {
+    static scoreboard(bot, message) {
         // if(message.length > 0) {
         //     const {labels} = new Parser(message.match[1]).parse()
         //
