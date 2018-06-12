@@ -3,6 +3,7 @@
 const SlackBot = require('./SlackBot')
 const Parser = require('./Parser')
 const http = require('http')
+const _ = require("lodash")
 
 class App {
     static start() {
@@ -38,9 +39,17 @@ class App {
             })
 
             resp.on('end', () => {
-                bot.reply({channel: message.channel}, {'text': 'JELLO'})
+                let players = data.content;
 
-                console.log(data);
+                let message = ':party_parrot: SCOREBOARD :party_parrot:\n\n'
+
+                let playersFormatter = _(players).map(this.playerFormatter)
+
+                message += playersFormatter.join('\n')
+
+                message += '\n\nDon\'t be sad if you are last. It just means you aren\'t winning.'
+
+                bot.reply({channel: message.channel}, {'text': message})
 
                 console.log('Done notifying')
             })
@@ -49,7 +58,11 @@ class App {
             bot.reply({channel: message.channel}, {'text': 'Error :sad_parrot:'})
 
             console.error('Error: ' + err.message)
-        });
+        })
+    }
+
+    static playerFormatter(player) {
+        return '' + player.rank + '. - ' + player.nombres + ' : ' + player.puntos;
     }
 }
 
