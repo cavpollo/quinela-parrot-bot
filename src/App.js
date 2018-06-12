@@ -2,13 +2,13 @@
 
 const SlackBot = require('./SlackBot')
 const Parser = require('./Parser')
-const https = require('https')
+const http = require('http')
 
 class App {
     static start() {
         const controller = new SlackBot().getController()
 
-        controller.hears("scoreboard (.+)", ["direct_message", "direct_mention", "mention"], this.scoreboard)
+        controller.hears("scoreboard (.*)", ["direct_message", "direct_mention", "mention"], this.scoreboard)
     }
 
     static scoreboard(bot, message) {
@@ -30,7 +30,7 @@ class App {
             }
         }
 
-        https.get(options, (resp) => {
+        http.get(options, (resp) => {
             let data = ''
 
             resp.on('data', (chunk) => {
