@@ -40,7 +40,7 @@ class App {
             })
 
             resp.on('end', () => {
-                let message = ':party_parrot: SCOREBOARD :party_parrot:\n\n'
+                let textMessage = ':party_parrot: SCOREBOARD :party_parrot:\n\n'
 
                 let dataJson = JSON.parse(data)
 
@@ -54,14 +54,11 @@ class App {
                     formattedPlayers.push('' + player.rank + '. ' + player.nombres + ': ' + player.puntos + ' points')
                 }
 
-                console.log('formattedPlayers')
-                console.log(formattedPlayers)
+                textMessage += formattedPlayers.join('\n')
 
-                message += formattedPlayers.join('\n')
+                textMessage += '\n\nDon\'t be sad if you are last. It just means you aren\'t winning.'
 
-                message += '\n\nDon\'t be sad if you are last. It just means you aren\'t winning.'
-
-                bot.reply({channel: message.channel}, {'text': message})
+                bot.reply({channel: message.channel}, {'text': textMessage})
 
                 console.log('Done notifying')
             })
