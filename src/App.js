@@ -51,7 +51,7 @@ class App {
 
                 let playersFormatter = []
                 for(let i = 0; i < players.length; i++) {
-                    playersFormatter.push(this.playerFormatter(players[i])
+                    playersFormatter.push(this.playerFormatter(players[i]))
                 }
 
                 console.log('playersFormatter')
