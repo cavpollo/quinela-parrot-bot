@@ -43,10 +43,12 @@ class App {
             resp.on('end', () => {
                 let message = ':party_parrot: SCOREBOARD :party_parrot:\n\n'
 
-                console.log('data.content')
-                console.log(data['content'])
+                let dataJson = JSON.parse(data)
 
-                let playersFormatter = _(data['content']).map(this.playerFormatter)
+                console.log('data.content')
+                console.log(dataJson)
+
+                let playersFormatter = _(dataJson.content).map(this.playerFormatter)
 
                 console.log('playersFormatter')
                 console.log(playersFormatter)
