@@ -20,7 +20,7 @@ class App {
 
         controller.hears("scoreboard", ["direct_message", "direct_mention", "mention"], this.scoreboard)
         controller.hears("match:(\\d+)", ["direct_message", "direct_mention", "mention"], this.match)
-        controller.hears("help:(\\d+)", ["direct_message", "direct_mention", "mention"], this.match)
+        controller.hears("help:(\\d+)", ["direct_message", "direct_mention", "mention"], this.help)
     }
 
     static scoreboard(bot, message) {
