@@ -166,8 +166,8 @@ class App {
 
                 textMessage += `Match #${match_id}: *${forecasts[0].equipo1}* vs *${forecasts[0].equipo2}*\n\n`
 
-                let score1 = getScore(String(random(match_id * 2)).charAt(8))
-                let score2 = getScore(String(random(match_id * 2 - 1)).charAt(8))
+                let score1 = getScore(String(random(match_id * 2)).charAt(7))
+                let score2 = getScore(String(random(match_id * 2 - 1)).charAt(6))
 
                 textMessage += `:party_parrot: You should bet on a *${score1}* - *${score2}*`
 
@@ -202,19 +202,19 @@ function random(seed) {
 }
 
 function getScore(value) {
-    if (value < 4) {
-        return 0;
+    if (value < 3) {
+        return 0
     }
 
-    if (value < 7) {
-        return 1;
+    if (value < 6) {
+        return 1
     }
 
     if (value < 9) {
-        return 2;
+        return 2
     }
 
-    return 3;
+    return 3
 }
 
 module.exports = App
