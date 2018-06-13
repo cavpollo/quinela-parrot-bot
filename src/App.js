@@ -8,8 +8,11 @@ const scoreMessages = ['Don\'t be sad if you are last. It just means you aren\'t
     'Don\'t worry, the next round you\'ll do better... Who are we kidding, your bad choices got you where you are.',
     'If you don\'t know who to pick, here is a tip: bet everything on Brasil, that way you can blame nostalgia for your bad choices.',
     'Let\'s us all thank Gus for making this Quinela possible. How else would we know how to squander our money?',
-    'All the Quinela money is safely stored on a Cayman Island account. Untraceable. Nothing to worry about.',
-    'Parrot Bot likes Germany. And Germany likes to work. So get back to work before I start tagging you on more Pull Requests!']
+    'All the Quiniela money is safely stored on a Cayman Island account. Untraceable. Nothing to worry about.',
+    'Parrot Bot likes Germany. And Germany likes to work. So get back to work before I start tagging you on more Pull Requests!',
+    'Remember to brag while you are winning. That winning streak won\'t last for long.',
+    'You all aren\'t very different from the stock market people, except they play with somebody else\'s money.',
+    'Can I become the new-magic-game-score-forecast-mascot, please?']
 
 class App {
     static start() {
@@ -17,6 +20,7 @@ class App {
 
         controller.hears("scoreboard", ["direct_message", "direct_mention", "mention"], this.scoreboard)
         controller.hears("match:(\\d+)", ["direct_message", "direct_mention", "mention"], this.match)
+        controller.hears("help:(\\d+)", ["direct_message", "direct_mention", "mention"], this.match)
     }
 
     static scoreboard(bot, message) {
@@ -55,7 +59,7 @@ class App {
                 let players = dataJson.content
 
                 let formattedPlayers = []
-                for(let i = 0; i < players.length; i++) {
+                for (let i = 0; i < players.length; i++) {
                     formattedPlayers.push(formatPlayer(players[i]))
                 }
 
@@ -106,16 +110,66 @@ class App {
 
                 let forecasts = dataJson.content
 
-                textMessage += `Match #${match_id}: ${forecasts[0].equipo1} vs ${forecasts[0].equipo2}`
+                textMessage += `Match #${match_id}: *${forecasts[0].equipo1}* vs *${forecasts[0].equipo2}*\n`
 
                 let formattedForecasts = []
-                for(let i = 0; i < forecasts.length; i++) {
+                for (let i = 0; i < forecasts.length; i++) {
                     formattedForecasts.push(formatForecast(forecasts[i]))
                 }
 
                 textMessage += formattedForecasts.join('\n')
 
-                textMessage += '\n\n:party_parrot: Good luck!'
+                textMessage += '\n\n:party_parrot: Good luck, you\'ll need it!'
+
+                bot.reply({channel: message.channel}, {'text': textMessage})
+
+                console.log('Done notifying')
+            })
+
+        }).on("error", (err) => {
+            bot.reply({channel: message.channel}, {'text': 'Error, something went wrong and I don\'t know how to fix it... I\'m just a parrot :sad_parrot:'})
+
+            console.error('Error: ' + err.message)
+        })
+    }
+
+    static help(bot, message) {
+        let match_id = message.match[1]
+
+        let host = process.env.QUINELA_HOST
+        let port = process.env.QUINELA_PORT
+        let path = process.env.MATCH_PATH
+        let token = process.env.QUINELA_TOKEN
+
+        var options = {
+            host: host,
+            port: port,
+            path: path.replace("%MATCH_ID%", match_id),
+            headers: {
+                'Authorization': token
+            }
+        }
+
+        http.get(options, (resp) => {
+            let data = ''
+
+            resp.on('data', (chunk) => {
+                data += chunk
+            })
+
+            resp.on('end', () => {
+                let textMessage = ':party_parrot: :soccer: FORECAST HELP :soccer: :party_parrot:\n\n'
+
+                let dataJson = JSON.parse(data)
+
+                let forecasts = dataJson.content
+
+                textMessage += `Match #${match_id}: *${forecasts[0].equipo1}* vs *${forecasts[0].equipo2}*\n\n`
+
+                let score1 = getScore(String(random(match_id * 2)).charAt(8))
+                let score2 = getScore(String(random(match_id * 2 - 1)).charAt(8))
+
+                textMessage += `:party_parrot: You should bet on a *${score1}* - *${score2}*`
 
                 bot.reply({channel: message.channel}, {'text': textMessage})
 
@@ -138,8 +192,29 @@ function formatForecast(forecast) {
     return `${forecast.nombres}: ${forecast.goles_equipo1} - ${forecast.goles_equipo2}`
 }
 
-function getRandomMessage(messages){
+function getRandomMessage(messages) {
     return messages[Math.floor(Math.random() * messages.length)]
+}
+
+function random(seed) {
+    let x = Math.sin(seed) * 10000
+    return x - Math.floor(x)
+}
+
+function getScore(value) {
+    if (value < 4) {
+        return 0;
+    }
+
+    if (value < 7) {
+        return 1;
+    }
+
+    if (value < 9) {
+        return 2;
+    }
+
+    return 3;
 }
 
 module.exports = App
