@@ -169,7 +169,7 @@ class App {
                 let score1 = getScore(String(random(match_id * 2)).charAt(7))
                 let score2 = getScore(String(random(match_id * 2 - 1)).charAt(6))
 
-                textMessage += `:party_parrot: You should bet on a *${score1}* - *${score2}*`
+                textMessage += `:party_parrot: You should bet on a *${score1}* - *${score2}*!!!`
 
                 bot.reply({channel: message.channel}, {'text': textMessage})
 
@@ -197,8 +197,7 @@ function getRandomMessage(messages) {
 }
 
 function random(seed) {
-    let x = Math.sin(seed) * 10000
-    return x - Math.floor(x)
+    return Math.sin(seed*13)
 }
 
 function getScore(value) {
