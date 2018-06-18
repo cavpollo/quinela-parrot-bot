@@ -4,14 +4,18 @@ const SlackBot = require('./SlackBot')
 const http = require('http')
 
 const scoreMessages = ['Don\'t be sad if you are last. It just means you aren\'t winning.',
-    'The best part about winning, is being able to identify the losers.',
+    'The best part about winning, is being able to identify the losers. Don\'t forget to point your finger at them.',
+    '\\_/\\_/\\_/\\_/ < This is a graph sample of productivity around latin-american offices around the world.',
     'Don\'t worry, the next round you\'ll do better... Who are we kidding, your bad choices got you where you are.',
-    'If you don\'t know who to pick, here is a tip: bet everything on Brasil, that way you can blame nostalgia for your bad choices.',
-    'Let\'s us all thank Gus for making this Quinela possible. How else would we know how to squander our money?',
+    'If you win, what will you do with the price money? I would investing in a 3D printer to have a physical form at the office.',
+    'If you don\'t know who to pick, here is a tip: bet everything on Brazil, that way you can blame nostalgia for your bad choices.',
+    'Let\'s us all thank Gus for making this Quiniela possible. How else would we know how to squander our money?',
+    'Trying to predict consistently the scores of soccer matches is futile. You\'ll have better luck predicting the weather.',
     'All the Quiniela money is safely stored on a Cayman Island account. Untraceable. Nothing to worry about.',
     'Parrot Bot likes Germany. And Germany likes to work. So get back to work before I start tagging you on more Pull Requests!',
     'Remember to brag while you are winning. That winning streak won\'t last for long.',
     'You all aren\'t very different from the stock market people, except they play with somebody else\'s money.',
+    'Don\'t get mad because you are not winning. Get mad because a virtual parrot is close to beating you.',
     'Can I become the new-magic-game-score-forecast-mascot, please?']
 
 class App {
