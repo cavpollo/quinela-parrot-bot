@@ -11,7 +11,7 @@ const scoreMessages = ['Don\'t be sad if you are last. It just means you aren\'t
     'If you don\'t know who to pick, here is a tip: bet everything on Brazil, that way you can blame nostalgia for your bad choices.',
     'Let\'s us all thank Gus for making this Quiniela possible. How else would we know how to squander our money?',
     'Trying to predict consistently the scores of soccer matches is futile. You\'ll have better luck predicting the weather.',
-    'All the Quiniela money is safely stored on a Cayman Island account. Untraceable. Nothing to worry about.',
+    'All the Quiniela money is safely stored on a Cayman Island account.my       Untraceable. Nothing to worry about.',
     'Parrot Bot likes Germany. And Germany likes to work. So get back to work before I start tagging you on more Pull Requests!',
     'Remember to brag while you are winning. That winning streak won\'t last for long.',
     'You all aren\'t very different from the stock market people, except they play with somebody else\'s money.',
@@ -28,12 +28,6 @@ class App {
     }
 
     static scoreboard(bot, message) {
-        // if(message.length > 0) {
-        //     const {labels} = new Parser(message.match[1]).parse()
-        //
-        //     console.log('Stuff for [Labels:' + labels.join(',') + ']!')
-        // }
-
         let host = process.env.QUINELA_HOST
         let port = process.env.QUINELA_PORT
         let path = process.env.QUINELA_PATH
@@ -62,9 +56,15 @@ class App {
 
                 let players = dataJson.content
 
+                let lastScore = 0
+                let lastPosition = 0
                 let formattedPlayers = []
                 for (let i = 0; i < players.length; i++) {
-                    formattedPlayers.push(formatPlayer(players[i]))
+                    if(lastScore !== players[i].puntos) {
+                        lastScore = players[i].puntos
+                        lastPosition = players[i].rank
+                    }
+                    formattedPlayers.push(formatPlayer(lastPosition, players[i]))
                 }
 
                 textMessage += formattedPlayers.join('\n')
@@ -188,8 +188,8 @@ class App {
     }
 }
 
-function formatPlayer(player) {
-    return `${player.rank}. ${player.nombres}: ${player.puntos} points`
+function formatPlayer(lastPosition, player) {
+    return `${lastPosition}. ${player.nombres}: ${player.puntos} points`
 }
 
 function formatForecast(forecast) {
