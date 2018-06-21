@@ -17,7 +17,7 @@ const scoreMessages = ['Don\'t be sad if you are last. It just means you aren\'t
     'You all aren\'t very different from the stock market people, except they play with somebody else\'s money.',
     'Don\'t get mad because you are not winning. Get mad because a virtual parrot is close to beating you.',
     'Can I become the new-magic-game-score-forecast-mascot, please?',
-    'Don\'t be disappointed on the game results. Be disappointed on your score prediction skills.']
+    'Don\'t be disappointed at the game results. Be disappointed at your score prediction skills.']
 
 class App {
     static start() {
