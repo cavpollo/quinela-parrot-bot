@@ -11,7 +11,7 @@ const scoreMessages = ['Don\'t be sad if you are last. It just means you aren\'t
     'If you don\'t know who to pick, here is a tip: bet everything on Brazil, that way you can blame nostalgia for your bad choices.',
     'Let\'s us all thank Gus for making this Quiniela possible. How else would we know how to squander our money?',
     'Trying to predict consistently the scores of soccer matches is futile. You\'ll have better luck predicting the weather.',
-    'All the Quiniela money is safely stored on a Cayman Island account.my       Untraceable. Nothing to worry about.',
+    'All the Quiniela money is safely stored on a Cayman Island account. Untraceable. Nothing to worry about.',
     'Parrot Bot likes Germany. And Germany likes to work. So get back to work before I start tagging you on more Pull Requests!',
     'Remember to brag while you are winning. That winning streak won\'t last for long.',
     'You all aren\'t very different from the stock market people, except they play with somebody else\'s money.',
@@ -78,7 +78,6 @@ class App {
 
         }).on("error", (err) => {
             bot.reply({channel: message.channel}, {'text': 'Error, something went wrong and I don\'t know how to fix it... I\'m just a parrot :sad_parrot:'})
-
             console.error('Error: ' + err.message)
         })
     }
